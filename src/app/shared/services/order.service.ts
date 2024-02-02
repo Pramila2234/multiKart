@@ -38,7 +38,7 @@ export class OrderService {
   razorpayTransaction(orderId: string, totalAmount: number, razorpay_payment_id ): Observable<any> {
     const amount =  Math.floor(totalAmount);
     const id = orderId.replace(" ","");
-    const url = `${this.razorpayApiUrl}/payment/createOrder?orderId=${id}&amount=${amount}`;
+    const url = `${this.razorpayApiUrl}/createOrder?orderId=${id}&amount=${amount}`;
     const dt = new Date();
     const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr);
     const dformat = `${dt.getFullYear()}/${padL(dt.getMonth()+1)}/${padL(dt.getDate())}T${padL(dt.getHours())}:${

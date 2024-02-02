@@ -5,13 +5,12 @@
 export const environment = {
   production: false,
   apiUrl: 'https://product.prod.psi.initz.run/multikart/v1/product',
-  productUrl: 'https://product.prod.psi.initz.run/multikart/v1/product',
   cartUrl: 'https://cart.prod.psi.initz.run/multikart/v1/cart',
   orderUrl: 'https://order.prod.psi.initz.run/multikart/v1/order',
-  ratingUrl: 'https://rating.prod.psi.initz.run',
+  ratingUrl: 'https://rating.prod.psi.initz.run/ratings',
   compareUrl: 'https://compare.prod.psi.initz.run/multikart/compare',
   wishlistUrl: 'https://wishlist.prod.psi.initz.run/multikart/product/wishlist',
-  razorpayUrl:'https://razorpay.prod.psi.initz.run',
+  razorpayUrl:'https://razorpay.prod.psi.initz.run/payment',
   stripe_token: 'STRIPE_TOKEN',
   paypal_token: 'PAYPAL_TOKEN'
 };
