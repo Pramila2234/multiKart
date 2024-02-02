@@ -15,11 +15,10 @@ const state = {
   providedIn: 'root'
 })
 export class OrderService {
-  private orderUrl = environment.orderUrl;
-
   private cartUpdateSubject = new Subject<void>();
   cartUpdate$ = this.cartUpdateSubject.asObservable();
-  private razorpayApiUrl = 'http://localhost:8084';
+  private razorpayApiUrl = environment.razorpayUrl;
+  private orderUrl = environment.orderUrl;
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -73,7 +72,7 @@ export class OrderService {
   }
 
     getAllOrders(userId: string): Observable<any[]> {
-      const url = `${this.orderUrl}/order/order?userId=${userId}`;
+      const url = `${this.orderUrl}/order?userId=${userId}`;
       return this.http.get<any[]>(url);
     }
   
@@ -114,7 +113,7 @@ export class OrderService {
       products: productArray
     }
 
-  this.http.post('http://localhost:8086/multikart/v1/order/create', request)
+  this.http.post(`${this.orderUrl}/create`, request)
   .subscribe(
     (response: any) => {
       if (response) {

@@ -32,10 +32,10 @@ export class ProductService {
   public productRecords = new BehaviorSubject<any[]>([]);
   private apiUrl = environment.apiUrl;
   private cartUrl = environment.cartUrl;
-  private wishlistApiUrl = 'http://localhost:8087/multikart/product/wishlist';
-  private addCompareApiUrl = 'http://localhost:8082/multikart/compare';
-  private ratingsApiUrl = 'http://localhost:8083/ratings';
-  private addRatingUrl = 'http://localhost:8083/ratings/add';
+  private wishlistApiUrl = environment.wishlistUrl;
+  private addCompareApiUrl = environment.compareUrl;
+  private ratingsApiUrl = environment.ratingUrl;
+  // private addRatingUrl = 'http://localhost:8083/ratings/add';
   variantid: any;
   private cartUpdateSubject = new Subject<void>();
   private wishlistUpdateSubject = new Subject<void>();
@@ -68,7 +68,7 @@ export class ProductService {
 * @method getCategory
 */
   public getCategory() {
-    const url = this.apiUrl + '/product/allcategories';
+    const url = this.apiUrl + '/allcategories';
     return this.http.get(url).pipe(
       map((resp: any) => {
         return resp.data;
@@ -88,7 +88,7 @@ export class ProductService {
 
   // Product
   private get products(): Observable<Product[]> {
-    this.Products = this.http.get<Product[]>(this.apiUrl + '/product/all').pipe(map((response: any) => {
+    this.Products = this.http.get<Product[]>(this.apiUrl + '/all').pipe(map((response: any) => {
       this.productRecords.next(response?.data);
       return response;
     }));
@@ -103,12 +103,12 @@ export class ProductService {
 
   //  Get All Products
   public get getAllProducts(): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/product/all');
+    return this.http.get<any>(this.apiUrl + '/all');
   }
 
   // Get Products by category
   public getProductsByCategory(category: string): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/product/bycategories?category=' + category);
+    return this.http.get<any>(this.apiUrl + '/bycategories?category=' + category);
     // return this.http.get<any>(this.apiUrl + '/product/all');
   }
 
@@ -144,7 +144,7 @@ export class ProductService {
    * @returns Observable<any>
    */
    public postRatingReview(ratingDetails: any): Observable<any> {
-    return this.http.post(this.addRatingUrl, ratingDetails);
+    return this.http.post(`${this.ratingsApiUrl}/add`, ratingDetails);
   }
 
   /*
@@ -426,7 +426,7 @@ export class ProductService {
 
   // Get Cart Items
   public getCartItems(userId: string | number): Observable<Product[]> {
-    return this.http.get<Product[]>(this.cartUrl + '/cart/byuserid?userId=' + userId).pipe(
+    return this.http.get<Product[]>(this.cartUrl + '/byuserid?userId=' + userId).pipe(
       map((response: any) => {
         return response?.data[0]
       })
@@ -470,7 +470,7 @@ export class ProductService {
     if (cartItem == !undefined) {
       cartItem.quantity += qty
     } else {
-      this.http.post(this.cartUrl + '/cart/add', request)
+      this.http.post(this.cartUrl + '/add', request)
         .subscribe(
           (response) => {
             if (response) {
@@ -512,7 +512,7 @@ export class ProductService {
     if (cartItem == !undefined) {
       cartItem.quantity += qty
     } else {
-      this.http.post(this.cartUrl + '/cart/add', request)
+      this.http.post(this.cartUrl + '/add', request)
         .subscribe(
           (response) => {
             if (response) {
@@ -538,7 +538,7 @@ export class ProductService {
       .set('deleteType', deleteType);
 
     // Make the DELETE request with query parameters
-    this.http.delete(this.cartUrl + '/cart/remove', { params })
+    this.http.delete(this.cartUrl + '/remove', { params })
       .subscribe(
         (response) => {
           if (response) {
@@ -577,7 +577,7 @@ export class ProductService {
       .set('deleteType', deleteType);
 
     // Make the DELETE request with query parameters
-    this.http.delete(this.cartUrl + '/cart/remove', { params })
+    this.http.delete(this.cartUrl + '/remove', { params })
       .subscribe(
         (response) => {
           if (response) {
@@ -621,7 +621,7 @@ export class ProductService {
         .set('maxPrice', maxPrice ? maxPrice.toString() : '1000');
   
       // Make the GET request with the constructed query parameters
-      return this.http.get(`${this.apiUrl}/product/filterProducts`, { params });
+      return this.http.get(`${this.apiUrl}/filterProducts`, { params });
     }
 
   // Get Product Filter
