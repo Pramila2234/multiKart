@@ -60,7 +60,7 @@ export class ProductService {
 * @description Search products by Brand, Title, Description
 */
     searchProducts(searchTerm: string): any {
-      const url = `http://localhost:8085/multikart/v1/product/search?keyword=${searchTerm}`;
+      const url = this.apiUrl + `/search?keyword=` + searchTerm;
       return this.http.get(url);
     }
 

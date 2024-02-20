@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'https://product.prod.psi.initz.run/multikart/v1/product',
-  cartUrl: 'https://cart.prod.psi.initz.run/multikart/v1/cart',
+  cartUrl: 'https://cartt.prod.psi.initz.run/multikart/v1/cart',
   orderUrl: 'https://order.prod.psi.initz.run/multikart/v1/order',
   ratingUrl: 'https://rating.prod.psi.initz.run/ratings',
   compareUrl: 'https://compare.prod.psi.initz.run/multikart/compare',
