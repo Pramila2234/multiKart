@@ -7,6 +7,7 @@ import { Product } from "../../shared/classes/product";
 import { ProductService } from "../../shared/services/product.service";
 import { OrderService } from "../../shared/services/order.service";
 import { ToastrService } from 'ngx-toastr';
+import { NgModel } from '@angular/forms';
 
 declare var Razorpay:any;
 @Component({
@@ -35,12 +36,12 @@ export class CheckoutComponent implements OnInit {
       firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       lastname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       phone: ['', [Validators.required, Validators.pattern('[0-9]+'), Validators.maxLength(10), , Validators.minLength(10)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
       address: ['', [Validators.required, Validators.maxLength(50)]],
-      country: ['', Validators.required],
-      town: ['', Validators.required],
-      state: ['', Validators.required],
-      postalcode: ['', [Validators.required, Validators.maxLength(6), , Validators.minLength(6)]]
+      country: ['', Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)],
+      town: ['', Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)],
+      state: ['', Validators.required,Validators.pattern(/^[a-zA-Z\s]+$/)],
+      postalcode: ['', [Validators.required, Validators.maxLength(6), , Validators.minLength(6), Validators.pattern('^[0-9]{6}$')]]
     })
 
   }
